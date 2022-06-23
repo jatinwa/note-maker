@@ -9,7 +9,6 @@ import { db } from '../../firebase';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import '../../App.css';
-import { NatRounded } from '@mui/icons-material';
 
 const Cardd = ({id, index, note}) => {
   

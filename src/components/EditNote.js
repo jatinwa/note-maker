@@ -1,18 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import '../App.css'
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { db } from '../firebase';
-import { setDoc, doc , serverTimestamp } from 'firebase/firestore';
+import { setDoc, doc , serverTimestamp, getDoc } from 'firebase/firestore';
 
 const EditNote = () => {
 
   const { id } = useParams();
-
   const [data, setData] = useState({title: '', description: ''});
 
+  useEffect(() => {
+    const getDocument = async () => {
+      const ref = await getDoc(doc(db, 'notes', id));
+      setData(ref.data());
+    }
+  
+    getDocument();
+  }, [id])
+  
   const handleSubmit = async (event) => { 
    event.preventDefault();
    
